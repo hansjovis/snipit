@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Snipit",
+  "version": "1.0.0",
+  "description": "An intelligent bookmarking tool.",
+  "browser_action": {
+    "default_title": "Snipit",
+    "default_popup": "dist/views/popup/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "dist/scripts/background/app.js"
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ]
+}
