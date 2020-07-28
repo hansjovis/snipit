@@ -1,11 +1,13 @@
 const backgroundWebpackConfig = require( "./background.webpack.config" );
 const contentWebpackConfig = require( "./content.webpack.config" );
+const popupWebpackConfig = require( "./views.popup.webpack.config" );
 
 module.exports = function( grunt ) {
 	grunt.initConfig( {
 		webpack: {
 			content: contentWebpackConfig,
-			background: backgroundWebpackConfig
+			background: backgroundWebpackConfig,
+			popup: popupWebpackConfig
 		},
 		copy: {
 			views: {
