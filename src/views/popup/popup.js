@@ -1,12 +1,4 @@
-function getCurrentActiveTabs() {
-	return new Promise(
-		( resolve, reject ) => {
-			chrome.tabs.query( { active: true, currentWindow: true },
-				( tabs ) => resolve( tabs )
-			);
-		}
-	);
-}
+import { getCurrentActiveTabs } from "./helpers/tabs";
 
 /**
  * Load the menu.
