@@ -6,10 +6,19 @@ module.exports = function( grunt ) {
 		webpack: {
 			content: contentWebpackConfig,
 			background: backgroundWebpackConfig
+		},
+		copy: {
+			views: {
+				expand: true,
+				cwd: "src/",
+				src: [ "views/**/*.{html,css}" ],
+				dest: "dist/"
+			}
 		}
 	} );
 
 	grunt.loadNpmTasks( "grunt-webpack" );
+	grunt.loadNpmTasks( "grunt-contrib-copy" );
 
-	grunt.registerTask( "default", [ "webpack" ] );
+	grunt.registerTask( "default", [ "webpack", "copy" ] );
 };
