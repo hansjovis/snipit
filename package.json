@@ -4,7 +4,7 @@
   "description": "An intelligent bookmarking tool.",
   "main": "index.js",
   "author": "Hansjovis",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "devDependencies": {
     "webpack": "^4.44.0",
