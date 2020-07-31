@@ -6,5 +6,6 @@ module.exports = {
 		path: path.resolve( __dirname, "../../dist/views/popup" ),
 		filename: "popup.js"
 	},
-	mode: "development"
+	mode: "development",
+	devtool: "cheap-module-source-map"
 };
