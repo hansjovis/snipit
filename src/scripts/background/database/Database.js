@@ -12,7 +12,7 @@ class Database {
 	 */
 	static open() {
 		if ( self.database ) {
-			return self.database;
+			return Promise.resolve( self.database );
 		} else {
 			let request = window.indexedDB.open( config.name, config.version );
 
@@ -81,6 +81,27 @@ class Database {
 		request.onsuccess = function( event ) {
 			console.log( `Stored object to the ${storeName} store: ${JSON.stringify( object )}` );
 		};
+	}
+
+	/**
+	 * Retrieves all object from the given store.
+	 *
+	 * @param {string} storeName The name of the store.
+	 */
+	static retrieveAll( storeName ) {
+		const transaction = self.database.transaction( storeName, "readonly" );
+		const store = transaction.objectStore( storeName );
+		const request = store.getAll();
+
+		return new Promise( ( resolve, reject ) => {
+			request.onsuccess = function( event ) {
+				resolve( event.target.result );
+			};
+			request.onerror = function( event ) {
+				Database.logError( event.target.error );
+				reject( event.target.error );
+			};
+		} );
 	}
 }
 
