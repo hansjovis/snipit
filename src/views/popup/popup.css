@@ -15,6 +15,14 @@ main {
 	margin: 8px;
 }
 
+button.link {
+	background: none;
+	border: none;
+	color: #000037;
+	text-decoration: underline;
+	text-align: center;
+}
+
 .error {
 	padding: 8px;
 	margin: 8px;

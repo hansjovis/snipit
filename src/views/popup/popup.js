@@ -15,9 +15,17 @@ function load() {
 			.then( tabs => chrome.tabs.sendMessage( tabs[ 0 ].id, { command: "snipit" } ) );
 	}
 
+	function openSnippetsPage( event ) {
+		chrome.tabs.create( { url: "dist/views/snipit/snipit.html" } );
+	}
+
 	// Add click event listener on main "Snip it" button.
-	const button = document.getElementById( "main-button" );
-	button.addEventListener( "click", snapButtonClick );
+	const mainButton = document.getElementById( "main-button" );
+	mainButton.addEventListener( "click", snapButtonClick );
+
+	// Add click event listener on "view snippets" button.
+	const viewSnippetsButton = document.getElementById( "view-snippets-button" );
+	viewSnippetsButton.addEventListener( "click", openSnippetsPage );
 }
 
 chrome.tabs.executeScript( { file: "dist/scripts/content/app.js" }, load );
