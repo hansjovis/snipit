@@ -15,7 +15,7 @@ module.exports = function( grunt ) {
 			views: {
 				expand: true,
 				cwd: "src/",
-				src: [ "views/**/*.{html,css}" ],
+				src: [ "views/**/*.{html,css,png}" ],
 				dest: "dist/"
 			}
 		}

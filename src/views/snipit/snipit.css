@@ -1,0 +1,50 @@
+
+#snippets {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: stretch;
+	list-style: none;
+	margin: auto;
+}
+
+#snippets article {
+	position: relative;
+	width: 256px;
+	margin: 8px;
+	border: 1px gray solid;
+	box-shadow: 0 0 4px 2px #d3d3d3;
+}
+
+#snippets article a {
+	text-decoration: none;
+	color: black;
+}
+
+#snippets article button.remove-button {
+	position: absolute;
+	right: 0;
+}
+
+#snippets article img {
+	height: 108px;
+	width: 100%;
+	object-fit: cover;
+}
+
+#snippets article h1, p {
+	margin: 0;
+	padding: 8px;
+}
+
+#snippets article p.link {
+	color: gray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#snippets article h1 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
