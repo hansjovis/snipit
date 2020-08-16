@@ -14,8 +14,9 @@ Development relies on these tools being available on your computer:
 
 ### Installing the development version
 **Note**: Snipit only supports Chrome at this time, Firefox will soon follow. 
- 1. Open Chrome.
- 2. Navigate to the `chrome://extensions/` internal page.
- 3. Enable _Development mode_ by toggling the switch in the upper-right corner of the page.
- 4. Click on the button labeled _Load unpacked_ in the upper-left corner.
- 5. Select the cloned repository (e.g. `path/to/snipit/`) and click _open_ or _select_.
+ 1. Make sure that your extension has been built.
+ 2. Open Chrome.
+ 3. Navigate to the `chrome://extensions/` internal page.
+ 4. Enable _Development mode_ by toggling the switch in the upper-right corner of the page.
+ 5. Click on the button labeled _Load unpacked_ in the upper-left corner.
+ 6. Select the cloned repository (e.g. `path/to/snipit/`) and click _open_ or _select_.
