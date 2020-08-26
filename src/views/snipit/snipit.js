@@ -1,13 +1,14 @@
 import Database from "../../scripts/background/database/Database";
-import snippetTemplate from "./templates/snippet";
-
-function snippetListTemplate( snippets ) {
-	return snippets.reduce( ( aggr, snippet ) => aggr + snippetTemplate( snippet ), "" );
-}
+import Snippet from "./components/Snippet";
+import render from "./components/render";
 
 function setSnippets( snippets ) {
-	const snippetsElement = document.getElementById( "snippets" );
-	snippetsElement.innerHTML = snippetListTemplate( snippets );
+	const root = document.getElementById( "snippets" );
+
+	for( let i = 0; i < snippets.length; i++ ) {
+		const snippet = new Snippet( snippets[i] );
+		render( root, snippet, { append: true } );
+	}
 }
 
 function onLoad() {
