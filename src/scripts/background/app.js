@@ -1,4 +1,4 @@
-import Snippet from "./model/Snippet";
+import Database from "./database/Database";
 
 /**
  * Handles messages sent from content scripts.
@@ -10,8 +10,7 @@ import Snippet from "./model/Snippet";
 function handleMessage( { command, payload } ) {
 	switch ( command ) {
 		case "saveSnippet":
-			const snippet = new Snippet( payload );
-			snippet.store();
+			Database.storeObject( "snippets", payload );
 			break;
 		default:
 			console.warn( `Snipit: '${command}' is an unknown command.` );

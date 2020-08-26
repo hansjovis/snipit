@@ -74,11 +74,14 @@ class Database {
 	 * @param {string} storeName The store in which to store the object.
 	 * @param {Object} object    The object to store.
 	 */
-	static storeObject( storeName, object ) {
-		const transaction = self.database.transaction( storeName, "readwrite" );
+	static async storeObject( storeName, object ) {
+		const database = await Database.open();
+
+		const transaction = database.transaction( storeName, "readwrite" );
 		const store = transaction.objectStore( storeName );
 		const request = store.add( object );
-		request.onsuccess = function( event ) {
+
+		request.onsuccess = function() {
 			console.log( `Stored object to the ${storeName} store: ${JSON.stringify( object )}` );
 		};
 	}
@@ -88,8 +91,10 @@ class Database {
 	 *
 	 * @param {string} storeName The name of the store.
 	 */
-	static retrieveAll( storeName ) {
-		const transaction = self.database.transaction( storeName, "readonly" );
+	static async retrieveAll( storeName ) {
+		const database = await Database.open();
+
+		const transaction = database.transaction( storeName, "readonly" );
 		const store = transaction.objectStore( storeName );
 		const request = store.getAll();
 
@@ -102,6 +107,24 @@ class Database {
 				reject( event.target.error );
 			};
 		} );
+	}
+
+	static async delete( storeName, id ) {
+		const database = await Database.open();
+
+		const transaction = database.transaction( storeName, "readwrite" );
+		const store = transaction.objectStore( storeName );
+		const request = store.delete( id );
+
+		return new Promise( ( resolve, reject ) => {
+			request.onsuccess = function() {
+				resolve( id );
+			}
+			request.onerror = function( event ) {
+				reject( event );
+			}
+		} );
+		
 	}
 }
 

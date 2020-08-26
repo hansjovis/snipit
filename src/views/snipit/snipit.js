@@ -12,10 +12,8 @@ function setSnippets( snippets ) {
 }
 
 function onLoad() {
-	Database.open()
-			.then( () => Database.retrieveAll( "snippets" ) )
+	Database.retrieveAll( "snippets" )
 			.then( setSnippets );
-
 }
 
 window.addEventListener( "load", onLoad );
