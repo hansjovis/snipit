@@ -1,7 +1,7 @@
 import config from "./db-config";
 
 /**
- *
+ * Database interface layer.
  */
 class Database {
 
@@ -43,7 +43,7 @@ class Database {
 	 * @param {Object} error The error to log.
 	 */
 	static logError( error ) {
-		console.error( "Snipit: Could not open a connection to the database.", error );
+		console.error( `Snipit - Error in database: ${error}` );
 	}
 
 	/**
@@ -58,12 +58,29 @@ class Database {
 		const store = database.createObjectStore( "snippets", { keyPath: "url" } );
 
 		return new Promise( ( resolve, reject ) => {
-			store.transaction.oncomplete = function( event ) {
+			store.transaction.oncomplete = function() {
 				resolve( database );
 			};
 
 			store.transaction.onerror = function( event ) {
 				reject( event.target );
+			};
+		} );
+	}
+
+	/**
+	 * Wraps the given database request in a promise.
+	 *
+	 * @param {IDBRequest} request The databse request.
+	 */
+	static toPromise( request ) {
+		return new Promise( ( resolve, reject ) => {
+			request.onsuccess = function( event ) {
+				resolve( event.target.result );
+			};
+			request.onerror = function( event ) {
+				Database.logError( event.target.error );
+				reject( event.target.error );
 			};
 		} );
 	}
@@ -81,9 +98,7 @@ class Database {
 		const store = transaction.objectStore( storeName );
 		const request = store.add( object );
 
-		request.onsuccess = function() {
-			console.log( `Stored object to the ${storeName} store: ${JSON.stringify( object )}` );
-		};
+		return Database.toPromise( request );
 	}
 
 	/**
@@ -98,17 +113,15 @@ class Database {
 		const store = transaction.objectStore( storeName );
 		const request = store.getAll();
 
-		return new Promise( ( resolve, reject ) => {
-			request.onsuccess = function( event ) {
-				resolve( event.target.result );
-			};
-			request.onerror = function( event ) {
-				Database.logError( event.target.error );
-				reject( event.target.error );
-			};
-		} );
+		return Database.toPromise( request );
 	}
 
+	/**
+	 * Deletes the item with the given id from the store.
+	 *
+	 * @param {string} storeName The name of the store.
+	 * @param {string} id        The id of the object to delete from the store.
+	 */
 	static async delete( storeName, id ) {
 		const database = await Database.open();
 
@@ -116,15 +129,7 @@ class Database {
 		const store = transaction.objectStore( storeName );
 		const request = store.delete( id );
 
-		return new Promise( ( resolve, reject ) => {
-			request.onsuccess = function() {
-				resolve( id );
-			}
-			request.onerror = function( event ) {
-				reject( event );
-			}
-		} );
-		
+		return Database.toPromise( request );		
 	}
 }
 
