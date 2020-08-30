@@ -21,6 +21,7 @@ function render( root, component, config = { append: false } ) {
     // "Slot" the rendered HTML into the appropriate slot.
     root = root.querySelector( slot );
     if ( !root ) {
+      console.error( `Could not render component, cannot find a slot that fits the '${slot}' query.` );
       return;
     }
   }

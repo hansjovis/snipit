@@ -8,6 +8,8 @@ class Snippet {
 
 	/**
 	 * Returns an HTML representation of this component.
+	 *
+	 * @return {string} The HTML string representation.
 	 */
 	render() {
 		const { url, image, title, description } = this.props;
@@ -32,9 +34,9 @@ class Snippet {
 		const removeButton = fragment.querySelector( ".remove-button" );
 		removeButton.onclick = () => {
 			Database.delete( "snippets", this.props.url )
-				.then( id => document.getElementById( id ) )
+				.then( () => document.getElementById( this.props.url ) )
 				.then( element => element.remove() )
-				.catch( error => console.error( `An error occurred: ${error}` ) )
+				.catch( error => console.error( `An error occurred while removing a snippet: ${error}` ) )
 		}
 	}
 }

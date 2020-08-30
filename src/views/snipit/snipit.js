@@ -1,6 +1,6 @@
 import Database from "../../scripts/background/database/Database";
 import Snippet from "./components/Snippet";
-import render from "./components/render";
+import render from "./framework/render";
 
 function setSnippets( snippets ) {
 	const root = document.getElementById( "snippets" );
@@ -13,7 +13,7 @@ function setSnippets( snippets ) {
 
 function onLoad() {
 	Database.retrieveAll( "snippets" )
-			.then( setSnippets );
+		.then( setSnippets );
 }
 
 window.addEventListener( "load", onLoad );
