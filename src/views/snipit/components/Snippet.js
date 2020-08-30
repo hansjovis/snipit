@@ -31,14 +31,10 @@ class Snippet {
 	register( fragment ) {
 		const removeButton = fragment.querySelector( ".remove-button" );
 		removeButton.onclick = () => {
-			Database.delete( "snippets", this.props.url ).then(
-				id => {
-					const element = document.getElementById( id );
-					if ( element ) {
-						element.remove();
-					}
-				}
-			)
+			Database.delete( "snippets", this.props.url )
+				.then( id => document.getElementById( id ) )
+				.then( element => element.remove() )
+				.catch( error => console.error( `An error occurred: ${error}` ) )
 		}
 	}
 }
