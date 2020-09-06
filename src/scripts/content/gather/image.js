@@ -1,6 +1,6 @@
 
 /**
- * Gathers the URL to the image from the first `og:image` meta tag
+ * Tries to gather the URL to an image from the first `og:image` meta tag
  * in the given HTML element.
  * 
  * @param {HTMLElement} element The element to gather the image from.
@@ -13,11 +13,11 @@ function fromMeta( element ) {
 		const url = meta.getAttribute( "content" );
 		return new URL( url, window.location.origin ).toString();
 	}
-	return false;
+	return "";
 }
 
 /**
- * Gathers the URL to the first image on the given HTML element. 
+ * Tries to gather the URL to the first image on the given HTML element. 
  * 
  * @param {HTMLElement} element The element to gather the image from.
  * 
@@ -26,10 +26,13 @@ function fromMeta( element ) {
 function firstContentImage( element ) {
 	const image = element.querySelector( "img" );
 	if ( image ) {
+		if ( image.clientHeight * image.clientWidth < 25000 ) {
+			return "";
+		}
 		const url = image.getAttribute( "src" );
 		return new URL( url, window.location.origin ).toString();
 	}
-	return false;
+	return "";
 }
 
 /**

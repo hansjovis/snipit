@@ -23,7 +23,7 @@ import gatherSnippet from "./gather/snippet";
 		 * Gather and save a snippet of the current page.
 		 */
 		function snipit() {
-			const snippet = gatherSnippet( document );
+			const snippet = gatherSnippet( window.location.href, document );
 			saveSnippet( snippet );
 		}
 
